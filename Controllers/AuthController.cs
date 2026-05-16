@@ -39,7 +39,7 @@ namespace MeraRakshak.Controllers
                 });
             }
 
-            bool mobileExists = await _context.Users.AnyAsync(u => u.MobileNo == request.MobileNo);
+            bool mobileExists = await _context.Users.AnyAsync(u => u.MobileNumber == request.MobileNumber);
             if (mobileExists)
             {
                 return Ok(new ApiResponse
@@ -53,12 +53,11 @@ namespace MeraRakshak.Controllers
             {
                 FullName = request.FullName,
                 EmailAddress = request.EmailAddress,
-                MobileNo = request.MobileNo,
-                Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
+                MobileNumber = request.MobileNumber,
+                Password = request.Password,
                 Address = request.Address,
-                ImeiNo = request.ImeiNo,
-                DeviceModel = request.DeviceModel,
-                CreatedAt = DateTime.UtcNow
+                DeviceId = request.DeviceId,
+                DeviceModelName = request.DeviceModelName
             };
 
             _context.Users.Add(user);

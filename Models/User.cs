@@ -1,38 +1,33 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MeraRakshak.Models
 {
+    [Table("UserMaster")]
     public class User
     {
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        public string FullName { get; set; } = string.Empty;
+        [MaxLength(200)]
+        public string? FullName { get; set; }
 
-        [Required]
-        [MaxLength(150)]
-        public string EmailAddress { get; set; } = string.Empty;
+        [MaxLength(200)]
+        public string? EmailAddress { get; set; }
 
-        [Required]
-        [MaxLength(15)]
-        public string MobileNo { get; set; } = string.Empty;
+        [MaxLength(10)]
+        public string? MobileNumber { get; set; }
 
-        [Required]
-        public string Password { get; set; } = string.Empty;
+        [MaxLength(50)]
+        public string? Password { get; set; }
 
-        [MaxLength(500)]
+        [MaxLength(200)]
         public string? Address { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string ImeiNo { get; set; } = string.Empty;
-
-        [Required]
         [MaxLength(100)]
-        public string DeviceModel { get; set; } = string.Empty;
+        public string? DeviceId { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        [MaxLength(100)]
+        public string? DeviceModelName { get; set; }
     }
 }

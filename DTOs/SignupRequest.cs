@@ -12,7 +12,8 @@ namespace MeraRakshak.DTOs
         public string EmailAddress { get; set; } = string.Empty;
 
         [Required]
-        public string MobileNo { get; set; } = string.Empty;
+        [MaxLength(10)]
+        public string MobileNumber { get; set; } = string.Empty;
 
         [Required]
         [MinLength(6)]
@@ -21,9 +22,9 @@ namespace MeraRakshak.DTOs
         public string? Address { get; set; }
 
         [Required]
-        public string ImeiNo { get; set; } = string.Empty;
+        public string DeviceId { get; set; } = string.Empty;
 
         [Required]
-        public string DeviceModel { get; set; } = string.Empty;
+        public string DeviceModelName { get; set; } = string.Empty;
     }
 }
