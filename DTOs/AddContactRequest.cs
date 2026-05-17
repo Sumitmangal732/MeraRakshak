@@ -1,29 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace MeraRakshak.DTOs
 {
     public class AddContactRequest
     {
         [Required]
-        public string Token { get; set; }
+        public string Token { get; set; } = string.Empty;
 
         [Required]
-        public string CallerName { get; set; }
+        public string CallerName { get; set; } = string.Empty;
 
         [Required]
-        public string CallerNo { get; set; }
+        public string CallerNo { get; set; } = string.Empty;
 
-        public string CallType { get; set; }
+        public string? CallerImg { get; set; }
 
-        public string CallDuration { get; set; }
-
-        public DateTime DateTime { get; set; }
-
-        public string ImeiNo { get; set; }
-
-        public string DeviceModel { get; set; }
-
-        public string CallerImg { get; set; }
+        public string? DeviceModel { get; set; }
     }
 }
-
