@@ -29,7 +29,9 @@ namespace MeraRakshak.Controllers
                 });
             }
 
-            bool emailExists = await _context.Users.AnyAsync(u => u.EmailAddress == request.EmailAddress);
+            bool emailExists = await _context.Users
+                .AnyAsync(u => u.EmailAddress == request.EmailAddress);
+
             if (emailExists)
             {
                 return Ok(new ApiResponse
@@ -39,7 +41,9 @@ namespace MeraRakshak.Controllers
                 });
             }
 
-            bool mobileExists = await _context.Users.AnyAsync(u => u.MobileNumber == request.MobileNumber);
+            bool mobileExists = await _context.Users
+                .AnyAsync(u => u.MobileNumber == request.MobileNumber);
+
             if (mobileExists)
             {
                 return Ok(new ApiResponse
@@ -67,6 +71,51 @@ namespace MeraRakshak.Controllers
             {
                 Status = 1,
                 Message = "Account has been created successfully."
+            });
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse
+                {
+                    Status = 0,
+                    Message = "Invalid request data."
+                });
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u =>
+                (u.EmailAddress == request.UserNameOrMobileNo ||
+                 u.MobileNumber == request.UserNameOrMobileNo)
+                 &&
+                 u.Password == request.Password);
+
+            if (user == null)
+            {
+                return Ok(new ApiResponse
+                {
+                    Status = 0,
+                    Message = "Invalid username/mobile number or password."
+                });
+            }
+
+            // Update device details
+            user.DeviceId = request.ImeiNo;
+            user.DeviceModelName = request.DeviceModel;
+
+            await _context.SaveChangesAsync();
+
+            // Dummy token
+            string token = Guid.NewGuid().ToString();
+
+            return Ok(new
+            {
+                status = 1,
+                message = "Login successfully",
+                token = token,
+                username = user.FullName
             });
         }
     }
